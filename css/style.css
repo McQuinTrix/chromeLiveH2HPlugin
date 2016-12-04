@@ -1,0 +1,82 @@
+body {
+    font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+    font-size: 100%;
+    background-color: black;
+    color: white;
+    margin: 0px;
+}
+.container {
+    /* avoid an excessively wide status text */
+    text-overflow: ellipsis;
+    overflow: hidden;
+    min-width: 400px;
+    color: white;
+}
+.left-nav{
+    width: 60px;
+    float: left;
+}
+.main-body{
+    float: right;
+    width: 340px;
+}
+.logo-container{
+    height: 50px;
+    padding: 10px 6px 5px;
+}
+.bg-blue{
+    background-color: rgb(13,118,184);
+}
+.bg-red{
+    background-color: rgb(236,57,104);
+}
+.bg-yellow{
+    background-color: rgb(254,204,10);
+}
+ul.tabs{
+    padding: 0px;
+    margin: 0px;
+    list-style-type: none;
+}
+ul.tabs li{
+    cursor: pointer;
+    padding: 7px 10px 3px 9px;
+    transition: 0.7s all;
+}
+
+ul.tabs li.disp-none{
+    display: none;
+}
+li img{
+    height: 42px;
+    width: 42px;
+}
+
+.bottom-border{
+    border: 1px solid white;
+    border-top-width: 0px;
+}
+
+#username + .bottom-border,
+#useremail + .bottom-border{
+    height: 4px;
+    width: 70%;
+    margin-top: -3px;
+    transition: 0.3s width;
+}
+
+#username:focus + .bottom-border,
+#useremail:focus + .bottom-border,
+#username:focus,
+#useremail:focus{
+    width: 95%;
+}
+
+#username,
+#useremail{
+    width: 70%;
+    background-color: transparent;
+    border: 0px;
+    transition: 0.3s width;
+    padding: 0 2px;
+}

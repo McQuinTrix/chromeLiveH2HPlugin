@@ -1,0 +1,62 @@
+<!doctype html>
+<!--
+ This page is shown when the extension button is clicked, because the
+ "browser_action" field in manifest.json contains the "default_popup" key with
+ value "popup.html".
+ -->
+<html>
+  <head>
+    <title>Getting Started Extension's Popup</title>
+    <style>
+      
+    </style>
+    <link href="./css/style.css" type="text/css" rel="stylesheet">
+    <!--
+      - JavaScript and HTML must be in separate files: see our Content Security
+      - Policy documentation[1] for details and explanation.
+      -
+      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
+     -->
+    <script src="popup.js"></script>
+  </head>
+  <body>
+    <div class="container">
+        <div class="left-nav">
+            <div class="logo-container">
+                <img src="logo.png" class=''/>
+            </div>
+            <ul class="tabs">
+                <li class="enter-info" title="Enter your information"><img src='img/id-card.png' /></li>
+                <li class="invite-mail" title="Invite by Mail"><img src='img/team.png' /></li>
+                <li class="join-conference" title="Join your conference"><img src='img/video-conference.png' /></li>
+                
+            </ul>
+        </div>
+        <div class="main-body">
+            <div class="invite-mail-body">
+                <div id="head-text">
+                    <div class="onfocus">
+                        <h3>Name</h3>
+                        <input type="text" placeholder="Enter your name..." id='username'/>
+                        <div class="bottom-border"></div>
+                    </div>
+                    <div class="onfocus">
+                        <h3>Email</h3>
+                        <input type='email' placeholder="Enter your email..." id='useremail'/>
+                        <div class="bottom-border"></div>
+                    </div>
+                    <button id='create-meeting' >Create Meeting</button>
+                </div>
+                <div id='start-meeting'>
+                    <h3>Meeting is created!</h3>
+                    <h4>Enter email/s (comma separated) to invite others:</h4>
+                    <textarea></textarea>
+                    <button id='invite-launch'>Invite & Launch Meeting</button>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+  </body>
+</html>
+
