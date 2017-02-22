@@ -21,19 +21,12 @@
   </head>
   <body>
     <div class="container">
-        <div class="left-nav">
-            <div class="logo-container">
-                <img src="logo.png" class=''/>
-            </div>
-            <ul class="tabs">
-                <li class="enter-info" title="Enter your information"><img src='img/id-card.png' /></li>
-                <li class="invite-mail" title="Invite by Mail"><img src='img/team.png' /></li>
-                <li class="join-conference" title="Join your conference"><img src='img/video-conference.png' /></li>
-                
-            </ul>
-        </div>
         <div class="main-body">
             <div class="invite-mail-body">
+                <div class="logo-container">
+                    <img src="logo.png" class='meet-logo'/>
+                    <span class="logo">Live<span>H2H</span></span>
+                </div>
                 <div id="head-text">
                     <div class="onfocus">
                         <h3>Name</h3>
@@ -42,13 +35,17 @@
                     </div>
                     <div class="onfocus">
                         <h3>Email</h3>
-                        <input type='email' placeholder="Enter your email..." id='useremail'/>
+                        <input type="email" name="email" placeholder="Enter your email..." id='useremail'/>
                         <div class="bottom-border"></div>
                     </div>
                     <button id='create-meeting' >Create Meeting</button>
                 </div>
-                <div id='start-meeting'>
+                <div id='start-meeting' style="display:none;">
                     <h3>Meeting is created!</h3>
+                    <div class="share-url">
+                        <h4>Meeting link for attendees:</h4>
+                        <input type='text' id='share-url-meet'/>
+                    </div>
                     <h4>Enter email/s (comma separated) to invite others:</h4>
                     <textarea></textarea>
                     <button id='invite-launch'>Invite & Launch Meeting</button>

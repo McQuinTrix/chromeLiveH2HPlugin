@@ -12,44 +12,26 @@ body {
     min-width: 400px;
     color: white;
 }
-.left-nav{
-    width: 60px;
-    float: left;
-}
 .main-body{
     float: right;
-    width: 340px;
+    margin-bottom: 16px;
+    width: 385px;
 }
 .logo-container{
     height: 50px;
-    padding: 10px 6px 5px;
+    padding: 10px 0px 5px;
 }
-.bg-blue{
-    background-color: rgb(13,118,184);
+img.meet-logo{
+    display: inline-block;
 }
-.bg-red{
-    background-color: rgb(236,57,104);
+span.logo{
+    display: inline-block;
+    font-size: 3em;
+    position: relative;
+    top: -10px;
 }
-.bg-yellow{
-    background-color: rgb(254,204,10);
-}
-ul.tabs{
-    padding: 0px;
-    margin: 0px;
-    list-style-type: none;
-}
-ul.tabs li{
-    cursor: pointer;
-    padding: 7px 10px 3px 9px;
-    transition: 0.7s all;
-}
-
-ul.tabs li.disp-none{
-    display: none;
-}
-li img{
-    height: 42px;
-    width: 42px;
+span.logo span{
+    font-weight: 700;
 }
 
 .bottom-border{
@@ -77,6 +59,46 @@ li img{
     width: 70%;
     background-color: transparent;
     border: 0px;
+    color: white;
     transition: 0.3s width;
     padding: 0 2px;
+}
+#start-meeting h3{
+    font-size: 1.6em;
+}
+h3,h4{
+    margin: 0.6em 0 0.3em;
+    font-weight: normal;
+}
+h4{
+    font-size: 0.8em;
+}
+
+textarea{
+    display: block;
+    width: 95%;
+    height: 60px;
+}
+
+button{
+    background-color: #671919;
+    border-radius: 5px;
+    border-width: 0px;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    margin: 1.4em 0;
+    padding: 0.8em 1.6em;
+    letter-spacing: 1.5px;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    
+}
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px black inset !important;
+    -webkit-text-fill-color: white;
 }

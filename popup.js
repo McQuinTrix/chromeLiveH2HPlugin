@@ -48,34 +48,29 @@ function getCurrentTabUrl(callback) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('create-meeting').addEventListener("click", setMeeting);
+    document.getElementById('create-meeting')
+        .addEventListener("click", setMeeting);
 });
 
 function inviteAjax(obj) {
+    chrome.tabs.create({ url:  liveH2HMeeting.meetingURL});
     sendObj = {
-        "origin": h2hMeeting.origin,
-        "meeting_id": h2hMeeting.omId,
+        "origin": liveH2HMeeting.origin,
+        "meeting_id": liveH2HMeeting.meetingId,
         "email_addresses": obj.packet
     };
-
-    $.ajax({
-        type: "POST",
-        url: "https://meet1.liveh2h.com/h2h_data/h2h_invitees",
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
+    function sendMeeting(){
+        chrome.tabs.create({ url:  liveH2HMeeting.meetingURL});
+    }
+    callAjax({
+      url: liveH2HMeeting.serverURL+"/h2h_data/h2h_invitees",
+      type: 'POST',
+        dataType: 'json',
         data: JSON.stringify(sendObj),
-        success: function (resp) {
-            console.log("Invites sent out successfully!")
-        },
-        error: function (jqXHR, e) {
-            if (status === 200) {
-              console.log("Invites sent out successfully!")
-            } else {
-           		console.log("Error Encountered")
-            }
-
-        }
+        contentType: "application/json; charset=utf-8",
+        callback: sendMeeting
     })
+    
 }
 
 
@@ -114,17 +109,29 @@ function setMeeting(){
     var name = document.getElementById('username').value,
         email = document.getElementById('useremail').value,
         apiUrl = "https://app.liveh2h.com/tutormeetweb/rest/v1/meetings/instant",
-        json = JSON.stringify({name: name, email,email});
+        json = JSON.stringify({name: name, email:email});
         
     function saveMeeting(arguments){
         window.liveH2HMeeting = JSON.parse(arguments).data;
+        //Hide fields and show invite page
+        document.getElementById('start-meeting')
+            .style.display = "block";
+        document.getElementById('head-text')
+            .style.display = "none";
+        //Share URL
+        var roomname = liveH2HMeeting.meetingId.split('');
+        roomname.splice(6,0,"-");
+        roomname.splice(3,0,"-");
+        roomname.join("");
+        var shareURL = liveH2HMeeting.serverURL +'/?roomname=' + roomname;
+        document.getElementById('share-url-meet').value = shareURL;
     }
         
     callAjax({
       url: apiUrl,
       type: 'POST',
         dataType: 'json',
-        data: '{"name": "Harshal","email": "h@c.com"}',
+        data: '{"name": "'+name+'","email": "'+email+'"}',
         contentType: "application/json; charset=utf-8",
         callback: saveMeeting
     })
