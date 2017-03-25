@@ -50,29 +50,51 @@ function getCurrentTabUrl(callback) {
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('create-meeting')
         .addEventListener("click", setMeeting);
+    document.getElementById("invite-launch")
+        .addEventListener("click", launchAndInvite);
+    document.getElementById("join-meeting")
+        .addEventListener("click", joinMeeting);
+    /**
+     * Attach event to options
+     */
+    var opts = document.querySelectorAll("#options .option");
+
+    for(var i=0; i<opts.length;i++){
+        //---
+        opts[i].addEventListener("click", optionClickHandler);
+    }
 });
 
-function inviteAjax(obj) {
-    chrome.tabs.create({ url:  liveH2HMeeting.meetingURL});
+function launchAndInvite(){
+    showThis("#load-panel");
+    var sendObj,
+        regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/,
+        packet = document.getElementById("emails-ta").value.split(",").map(function(obj,num){
+            obj = obj.trim();
+            if (regex.test(obj) === true) {
+                return obj;
+            }else{
+                return "";
+            }
+        });
+                
     sendObj = {
         "origin": liveH2HMeeting.origin,
         "meeting_id": liveH2HMeeting.meetingId,
-        "email_addresses": obj.packet
+        "email_addresses": packet
     };
-    function sendMeeting(){
-        chrome.tabs.create({ url:  liveH2HMeeting.meetingURL});
-    }
-    callAjax({
-      url: liveH2HMeeting.serverURL+"/h2h_data/h2h_invitees",
-      type: 'POST',
-        dataType: 'json',
-        data: JSON.stringify(sendObj),
-        contentType: "application/json; charset=utf-8",
-        callback: sendMeeting
+    
+    chrome.storage.local.set({
+        ajax: {
+            url: liveH2HMeeting.serverURL + ":443/",
+            obj: JSON.stringify(sendObj),
+            tosend: true,
+            local: liveH2HMeeting.serverURL.split("//")[1]
+        }
     })
+    chrome.tabs.create({ url:  liveH2HMeeting.meetingURL});
     
 }
-
 
 
 /**
@@ -100,7 +122,7 @@ function callAjax(obj){
     if(obj.hasOwnProperty("contentType")){
         xmlhttp.setRequestHeader('Content-Type', obj.contentType);
     }
-    
+
     xmlhttp.send(obj.data);
 }
 
@@ -110,7 +132,7 @@ function setMeeting(){
         email = document.getElementById('useremail').value,
         apiUrl = "https://app.liveh2h.com/tutormeetweb/rest/v1/meetings/instant",
         json = JSON.stringify({name: name, email:email});
-        
+
     function saveMeeting(arguments){
         window.liveH2HMeeting = JSON.parse(arguments).data;
         //Hide fields and show invite page
@@ -125,8 +147,14 @@ function setMeeting(){
         roomname.join("");
         var shareURL = liveH2HMeeting.serverURL +'/?roomname=' + roomname;
         document.getElementById('share-url-meet').value = shareURL;
-    }
         
+        //Hide loading panel
+        hideThis("#load-panel");
+    }
+    
+    //Show loading panel
+    showThis("#load-panel");
+    
     callAjax({
       url: apiUrl,
       type: 'POST',
@@ -137,3 +165,53 @@ function setMeeting(){
     })
 }
 
+function joinMeeting(){
+    var name = document.getElementById('username-join').value.trim(),
+        email = document.getElementById('useremail-join').value.trim(),
+        mID = document.getElementById('meeting-id').value.trim().split("-").join(""),
+        regex = /^\d+$/,
+        apiUrl = "https://app.liveh2h.com/tutormeetweb/rest/v1/meetings/join";
+    
+    showThis("#load-panel");
+    
+    if(name.length > 0 && mID.length === 9 && regex.test(mID)){
+        callAjax({
+          url: apiUrl,
+          type: 'POST',
+            dataType: 'json',
+            data: '{"name": "'+name+'","email": "'+email+'", "meetingId":"'+ mID +'"}',
+            contentType: "application/json; charset=utf-8",
+            callback: function(data){
+                var d = JSON.parse(data);
+                chrome.tabs.create({ url:  d.data.meetingURL});
+            }
+        })
+    }
+    
+}
+
+function showThis(selector){
+    var elems = document.querySelectorAll(selector);
+    for(var i = 0; i < elems.length; i++){
+        elems[i].style.display = "initial";
+    }
+}
+function hideThis(selector){
+    var elems = document.querySelectorAll(selector);
+    for(var i = 0; i < elems.length; i++){
+        elems[i].style.display = "none";
+    }
+}
+
+
+function optionClickHandler(event){
+    var option = this.getAttribute("data-option");
+    if(option === "1"){
+        //Create
+        showThis("#head-text");
+    }else if(option === "2"){
+        //Join
+        showThis("#head-join");
+    }
+    hideThis("#options");
+}

@@ -40,6 +40,7 @@ span.logo span{
 }
 
 #username + .bottom-border,
+#username-join + .bottom-border,#useremail-join+ .bottom-border, #meeting-id+ .bottom-border,
 #useremail + .bottom-border{
     height: 4px;
     width: 70%;
@@ -49,13 +50,22 @@ span.logo span{
 
 #username:focus + .bottom-border,
 #useremail:focus + .bottom-border,
+#username-join:focus + .bottom-border, 
+#useremail-join:focus + .bottom-border, 
+#meeting-id:focus + .bottom-border,
+#username-join:focus, 
+#useremail-join:focus, 
+#meeting-id:focus,
 #username:focus,
 #useremail:focus{
     width: 95%;
 }
 
 #username,
-#useremail{
+#useremail,
+#username-join, 
+#useremail-join, 
+#meeting-id{
     width: 70%;
     background-color: transparent;
     border: 0px;
@@ -101,4 +111,55 @@ input:-webkit-autofill:active {
 input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 1000px black inset !important;
     -webkit-text-fill-color: white;
+}
+
+/**
+ * First Look
+ */
+.options-container{
+    height: 300px;
+}
+.option{
+    background-position: center center;
+    background-size: 150px 150px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    border-radius: 3px;
+    display: inline-block;
+    height: 100%;
+    text-align: center;
+    transition: 0.2s all;
+    width: 48%;
+}
+.option:hover{
+    background-color: rgba(256,256,256,0.2);
+}
+.option[data-option='1']{
+    background-image: url("img/video-conference.png");
+}
+.option[data-option='2']{
+    background-image: url("./img/team.png");
+}
+
+span.option-text{
+    display: inline-block;
+    font-size: 30px;
+    padding-top: 20px;
+}
+
+/**
+ * Loading
+ */ 
+.load-panel{
+    position: fixed;
+    z-index: 1000 !important;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    background: url(/img/spinner.gif);
+    background-color: rgba(0, 0, 0, 0.95);
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: none;
 }

@@ -8,7 +8,7 @@
   <head>
     <title>Getting Started Extension's Popup</title>
     <style>
-      
+
     </style>
     <link href="./css/style.css" type="text/css" rel="stylesheet">
     <!--
@@ -27,33 +27,62 @@
                     <img src="logo.png" class='meet-logo'/>
                     <span class="logo">Live<span>H2H</span></span>
                 </div>
-                <div id="head-text">
+                <div id="options" class='options-container'>
+                    <div class="option" data-option='1'>
+                        <span class='option-text'>Create</span>
+                    </div>
+                    <div class="option" data-option='2'>
+                        <span class='option-text'>Join</span>
+                    </div>
+                </div>
+                <div id="head-text" style="display:none;">
                     <div class="onfocus">
                         <h3>Name</h3>
-                        <input type="text" placeholder="Enter your name..." id='username'/>
+                        <input type="text" placeholder="Enter your name..." id='username' autocomplete="off"/>
                         <div class="bottom-border"></div>
                     </div>
                     <div class="onfocus">
                         <h3>Email</h3>
-                        <input type="email" name="email" placeholder="Enter your email..." id='useremail'/>
+                        <input type="email" name="email" placeholder="Enter your email..." id='useremail' autocomplete="off"/>
                         <div class="bottom-border"></div>
                     </div>
                     <button id='create-meeting' >Create Meeting</button>
                 </div>
+                <div id="head-join" style="display:none;">
+                    <div class="onfocus">
+                        <h3>Name</h3>
+                        <input type="text" placeholder="Enter your name..." id='username-join' autocomplete="off"/>
+                        <div class="bottom-border"></div>
+                    </div>
+                    <div class="onfocus">
+                        <h3>Email</h3>
+                        <input type="email" name="email" placeholder="Enter your email..." id='useremail-join' autocomplete="off"/>
+                        <div class="bottom-border"></div>
+                    </div>
+                    <div class="onfocus">
+                        <h3>Meeting ID</h3>
+                        <input type="text" name="meeting" placeholder="Meeting ID" id='meeting-id' autocomplete="off"/>
+                        <div class="bottom-border"></div>
+                    </div>
+                    <button id='join-meeting' >Join Meeting</button>
+                </div>
+
                 <div id='start-meeting' style="display:none;">
                     <h3>Meeting is created!</h3>
                     <div class="share-url">
                         <h4>Meeting link for attendees:</h4>
-                        <input type='text' id='share-url-meet'/>
+                        <input type='text' id='share-url-meet' readonly/>
                     </div>
                     <h4>Enter email/s (comma separated) to invite others:</h4>
-                    <textarea></textarea>
-                    <button id='invite-launch'>Invite & Launch Meeting</button>
+                    <textarea id='emails-ta'></textarea>
+                    <button id='invite-launch' >Invite & Launch Meeting</button>
                 </div>
+
             </div>
+        </div>
+        <div class='load-panel' id='load-panel'>
             
         </div>
     </div>
   </body>
 </html>
-

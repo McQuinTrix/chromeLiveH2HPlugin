@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
 
-  "name": "Getting started example",
-  "description": "This extension shows a Google Image search result for the current page",
+  "name": "LiveH2H Meeting",
+  "description": "This extension helps you create and join LiveH2H meetings!",
   "version": "1.0",
 
   "browser_action": {
@@ -10,7 +10,13 @@
     "default_popup": "popup.html"
   },
   "permissions": [
+      "storage",
+    "https://*.liveh2h.com/",
     "activeTab",
     "https://ajax.googleapis.com/"
-  ]
+  ],
+    "content_scripts": [{
+        "matches": ["https://*/*"],
+        "js": ["always-run.js"]
+    }]
 }
