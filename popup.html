@@ -6,17 +6,12 @@
  -->
 <html>
   <head>
-    <title>Getting Started Extension's Popup</title>
+    <title>LiveH2H Popup Page</title>
     <style>
 
     </style>
     <link href="./css/style.css" type="text/css" rel="stylesheet">
-    <!--
-      - JavaScript and HTML must be in separate files: see our Content Security
-      - Policy documentation[1] for details and explanation.
-      -
-      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
-     -->
+
     <script src="popup.js"></script>
   </head>
   <body>
@@ -77,7 +72,10 @@
                     <textarea id='emails-ta'></textarea>
                     <button id='invite-launch' >Invite & Launch Meeting</button>
                 </div>
-
+                
+                <div id='created' style="display:none;">
+                    <h3>"Happy Meetings!"</h3>
+                </div>
             </div>
         </div>
         <div class='load-panel' id='load-panel'>

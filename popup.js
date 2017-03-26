@@ -93,7 +93,9 @@ function launchAndInvite(){
         }
     })
     chrome.tabs.create({ url:  liveH2HMeeting.meetingURL});
-    
+    //Hide loading panel
+    hideThis("#load-panel,#head-text,#head-join");
+    showThis("#created");
 }
 
 
@@ -122,7 +124,7 @@ function callAjax(obj){
     if(obj.hasOwnProperty("contentType")){
         xmlhttp.setRequestHeader('Content-Type', obj.contentType);
     }
-
+    
     xmlhttp.send(obj.data);
 }
 
@@ -161,7 +163,14 @@ function setMeeting(){
         dataType: 'json',
         data: '{"name": "'+name+'","email": "'+email+'"}',
         contentType: "application/json; charset=utf-8",
-        callback: saveMeeting
+        callback: saveMeeting,
+        errorCall: function(data){
+            //Hide loading panel
+                var mess = JSON.parse(data);
+                hideThis("#load-panel,#head-text,#head-join");
+                showThis("#created");
+                document.getElementById("created").innerHTML = "<h3>"+mess.message+"!</h3>";
+        }
     })
 }
 
@@ -184,8 +193,18 @@ function joinMeeting(){
             callback: function(data){
                 var d = JSON.parse(data);
                 chrome.tabs.create({ url:  d.data.meetingURL});
+                //Hide loading panel
+                hideThis("#load-panel,#head-text,#head-join");
+                showThis("#created");
+            },
+            errorCall: function(data){
+                //Hide loading panel
+                var mess = JSON.parse(data);
+                hideThis("#load-panel,#head-text,#head-join");
+                showThis("#created");
+                document.getElementById("created").innerHTML = "<h3>"+mess.message+"!</h3>";
             }
-        })
+        });
     }
     
 }
